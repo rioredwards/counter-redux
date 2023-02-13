@@ -1,11 +1,14 @@
 import { legacy_createStore } from 'redux';
 
+const initialState = { counter: 0, increaseAmount: 5, showCounter: true };
+
 // Reducer
-const counterReducer = (state = { counter: 0, increaseAmount: 5 }, action) => {
+const counterReducer = (state = initialState, action) => {
   if (action.type === 'increment') {
     return {
       counter: state.counter + 1,
       increaseAmount: state.increaseAmount,
+      showCounter: state.showCounter,
     };
   }
 
@@ -13,6 +16,7 @@ const counterReducer = (state = { counter: 0, increaseAmount: 5 }, action) => {
     return {
       counter: state.counter + action.amount,
       increaseAmount: state.increaseAmount,
+      showCounter: state.showCounter,
     };
   }
 
@@ -20,6 +24,7 @@ const counterReducer = (state = { counter: 0, increaseAmount: 5 }, action) => {
     return {
       counter: state.counter - 1,
       increaseAmount: state.increaseAmount,
+      showCounter: state.showCounter,
     };
   }
 
@@ -27,6 +32,15 @@ const counterReducer = (state = { counter: 0, increaseAmount: 5 }, action) => {
     return {
       counter: state.counter,
       increaseAmount: action.amount,
+      showCounter: state.showCounter,
+    };
+  }
+
+  if (action.type === 'toggle') {
+    return {
+      counter: state.counter,
+      increaseAmount: state.increaseAmount,
+      showCounter: !state.showCounter,
     };
   }
 

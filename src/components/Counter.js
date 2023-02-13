@@ -10,6 +10,7 @@ const Counter = () => {
   // This automatically subscribes to the store
   const counter = useSelector((state) => state.counter);
   const increaseAmount = useSelector((state) => state.increaseAmount);
+  const showCounter = useSelector((state) => state.showCounter);
   const [inputValue, setInputValue] = useState(increaseAmount);
 
   const incrementHandler = () => {
@@ -25,7 +26,6 @@ const Counter = () => {
   };
 
   const increaseAmountHandler = () => {
-    console.log('inputValue', inputValue);
     dispatch({ type: 'increaseAmount', amount: inputValue });
   };
 
@@ -35,13 +35,19 @@ const Counter = () => {
     setInputValue(number);
   };
 
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+    console.log('increaseAmount', increaseAmount);
+    dispatch({ type: 'toggle' });
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter || 0}</div>
-      <div className={classes.value}>{increaseAmount}</div>
+      {showCounter && (
+        <>
+          <div className={classes.value}>{counter || 0}</div>
+        </>
+      )}
       <form
         className={classes.inputForm}
         onSubmit={(e) => {
@@ -49,14 +55,17 @@ const Counter = () => {
           increaseAmountHandler();
         }}
       >
-        <label htmlFor="amount">Increase Amount</label>
-        <input
-          id="amount"
-          type="text"
-          placeholder="Ex: 5"
-          value={inputValue}
-          onChange={(e) => handleInputChange(e.target.value)}
-        ></input>
+        <div className={classes.inputAndLabel}>
+          <label htmlFor="amount">Increase Amount</label>
+          <input
+            id="amount"
+            type="text"
+            placeholder="Ex: 5"
+            value={inputValue}
+            onChange={(e) => handleInputChange(e.target.value)}
+          ></input>
+        </div>
+        <span className={classes.increaseAmount}>{increaseAmount}</span>
         <button>Submit</button>
       </form>
       <div>
