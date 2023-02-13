@@ -2,12 +2,16 @@ import { legacy_createStore } from 'redux';
 
 // Reducer
 const counterReducer = (state = { counter: 0 }, action) => {
-  if (action.type === 'INCREMENT') {
-    return state.counter + 1;
+  if (action.type === 'increment') {
+    return {
+      counter: state.counter + 1,
+    };
   }
 
-  if (action.type === 'DECREMENT') {
-    return state.counter - 1;
+  if (action.type === 'decrement') {
+    return {
+      counter: state.counter - 1,
+    };
   }
 
   return state;
